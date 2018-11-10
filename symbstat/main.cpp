@@ -3,25 +3,18 @@
 #include <map>
 #include <string>
 #include <fstream>
+#include <memory>
 
 #include "filewrapper.h"
+#include "argsparser.h"
 
 int main(int argc, char *argv[])
 {
-    bool continueFlag = false;
-    std::string filePath;
-    if(argc == 2)
-    {
-        filePath = argv[1];
-        continueFlag = true;
-    }
-    else
-    {
-        std::cout << "Error! Wrong using format." << std::endl;
-        std::cout << "Usage: symbstat FILE_PATH" << std::endl;
-    }
     try {
-        FileWrapper file(filePath);
+        std::unique_ptr<IAppConfig> config(new ArgsParser(argc, argv));
+
+
+        FileWrapper file(config->GetFileName());
         char currentSymbol;
         std::map<char, uint64_t> symbolMatchCounter;
         while(file.GetChar(currentSymbol))
@@ -33,8 +26,14 @@ int main(int argc, char *argv[])
             std::cout << " Sym: " << symbStat.first << "\t\t " << symbStat.second << std::endl;
         }
 
-    } catch (std::string e) {
+    }
+    catch (std::string e)
+    {
         std::cout << "Exception: " << e << std::endl;
+    }
+    catch(std::exception e)
+    {
+        std::cout << "STD Exception: " << e.what() << std::endl;
     }
 
     return 0;
