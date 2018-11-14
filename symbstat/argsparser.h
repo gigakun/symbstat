@@ -8,7 +8,6 @@ class IAppConfig
 public:
     virtual const std::string& GetFileName() const = 0;
     virtual const bool IsIgnoreCPPComments() const = 0;
-protected:
     virtual ~IAppConfig(){};
 };
 

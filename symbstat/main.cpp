@@ -20,7 +20,7 @@ struct valueCmp {
         }
         else
         {
-            result = a.second < b.second;
+            result = a.second > b.second;
         }
         return result;
     }
