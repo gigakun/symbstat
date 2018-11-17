@@ -3,6 +3,8 @@
 
 static const std::string sClassName = "ArgsParser";
 
+IAppConfig::~IAppConfig(){}
+
 ArgsParser::ArgsParser(int argc, char* argv[])
     : m_sFileName("")
     , m_bIsIgnoreCPPComments(false)
@@ -23,6 +25,7 @@ ArgsParser::ArgsParser(int argc, char* argv[])
         throw std::string(sClassName + ": Invalid format! Couldn't parse filename!");
     }
 }
+ArgsParser::~ArgsParser() {}
 
 void ArgsParser::ParseKeys(char keys[])
 {
